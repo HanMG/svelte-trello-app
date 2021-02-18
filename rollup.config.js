@@ -1,9 +1,10 @@
-import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import svelte from 'rollup-plugin-svelte';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import sveltePreprocess from 'svelte-preprocess';
 
 // Rollup Watch 기능(-w)이 동작하는 경우만 '개발모드'라고 판단
 const production = !process.env.ROLLUP_WATCH;
@@ -47,15 +48,23 @@ export default {
 		svelte({
 			compilerOptions: {
 				// enable run-time checks when not in production
-				// 개발 ㅗ드에서 런타임 검사 활성화
-				dev: !production
-			}
+				// 개발 코드에서 런타임 검사 활성화
+				dev: !production,				
+			},
+			preprocess: sveltePreprocess({
+				postcss: {
+					plugins: [
+						require('autoprefixer')()
+					]
+				}
+			})
+			
 		}),
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		// svelte 컴포넌트의 css를 별도의 번들로 생성
 		css({ output: 'bundle.css' }),
-
+		
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
 		// some cases you'll need additional configuration -
