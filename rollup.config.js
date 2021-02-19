@@ -1,9 +1,14 @@
+import path from 'path';
 import commonjs from '@rollup/plugin-commonjs';
+import alias from '@rollup/plugin-alias';
 import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import globals from 'rollup-plugin-node-globals';
+import builtins from 'rollup-plugin-node-builtins';
+import replace from 'rollup-plugin-replace';
 import sveltePreprocess from 'svelte-preprocess';
 
 // Rollup Watch 기능(-w)이 동작하는 경우만 '개발모드'라고 판단
@@ -60,6 +65,12 @@ export default {
 			})
 			
 		}),
+		replace({
+			values: {
+				'crypto.randomBytes':'require("randombytes")'
+			}
+		}),
+
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		// svelte 컴포넌트의 css를 별도의 번들로 생성
@@ -75,8 +86,19 @@ export default {
 			browser: true,
 			// 중복 번들을 방지하기위한 외부 모듈 이름을 지정
 			dedupe: ['svelte']
-		}),
+		}),		
 		commonjs(),
+		globals(),
+		builtins(),
+
+		alias({
+			entries: [
+				{
+					find: '~',
+					replacement: path.resolve(__dirname, 'src/')
+				}
+			]
+		}),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
