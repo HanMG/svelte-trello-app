@@ -1,4 +1,5 @@
 <script>
+    import {lists} from '~/store/list'
     import List from '~/components/List.svelte'
     import CreateList from '~/components/CreateList.svelte'
 </script>
@@ -6,8 +7,10 @@
 <div class="list-container">
     <div class="lists">
         <!-- <div class="list"></div> -->
-        <List />
-        <List />
+        {#each $lists as list (lists.id)}
+            <List />
+        {/each}
+        
     </div>
     <!-- <div class="create-list"></div> -->
     <CreateList />

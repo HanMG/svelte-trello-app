@@ -99,3 +99,23 @@ replace({
 plugin의 commonjs() 아래에 globals, builtins적용
 globals(),
 bulitins(),
+
+
+# 전역스타일(main.scss) 구성
+src아래에 scss 디렉토리를 구성한후 main.scss 제작
+
+각각의 컴포넌트에서 
+<!-- <style lang="scss> --> 을 사용할 때
+전역 스타일이 먼저 적용되게 하려면 
+
+rollup.config에 전처리부분에 scss에 대한 내용을 추가하면 됨
+preprocess: sveltePreprocess({
+	scss: {
+		prependData: '@import "./src/scss/main.scss";'
+	},
+	postcss: {
+		plugins: [
+			require('autoprefixer')()
+		]
+	}
+})

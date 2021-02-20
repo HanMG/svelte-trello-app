@@ -57,6 +57,9 @@ export default {
 				dev: !production,				
 			},
 			preprocess: sveltePreprocess({
+				scss: {
+					prependData: '@import "./src/scss/main.scss";'
+				},
 				postcss: {
 					plugins: [
 						require('autoprefixer')()

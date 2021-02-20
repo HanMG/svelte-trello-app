@@ -1,9 +1,66 @@
 <script>
+    import { tick } from 'svelte';
     import { lists } from '~/store/list'
+
+    let isEditMode = false
+    let title = ''
+    let textareaEl
+
+    function addList() {
+        if(title.trim()){
+            lists.add({
+                title
+            })
+        }
+        offEditMode()
+    }
+
+    async function onEditMode() {
+        isEditMode = true
+        await tick()
+        textareaEl && textareaEl.focus()
+    }
+
+    function offEditMode() {
+        isEditMode = false
+        title = ''
+    }
+
 </script>
 
 <div class="create-list">
-    + Add another list
+    {#if isEditMode}
+        <div class="edit-mode">
+            <textarea
+                bind:value={title}
+                bind:this = {textareaEl}
+                placeholder="Enter a title for this list..."
+                on:keydown={event => {
+                    event.key === 'Enter' && addList()
+                    event.key === 'Escape' && offEditMode()
+                    event.key === 'Esc' && offEditMode() // Edge browser
+                }}></textarea>            
+            <div class="actions">
+                <div
+                    class="btn success"
+                    on:click={addList}>
+                    Add List
+                </div>
+                <div
+                    class="btn" 
+                    on:click={offEditMode}>
+                    Cancel
+                </div>
+            </div>
+        </div>
+    {:else}
+        <div 
+            class="add-another-list"
+            on:click={onEditMode}>
+            + Add another list
+        </div>
+    {/if}
+    
 </div>
 
 <style lang="scss">
