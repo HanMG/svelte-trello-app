@@ -5,14 +5,11 @@
 </script>
 
 <div class="list-container">
-    <div class="lists">
-        <!-- <div class="list"></div> -->
+    <div class="lists">        
         {#each $lists as list (lists.id)}
-            <List />
-        {/each}
-        
-    </div>
-    <!-- <div class="create-list"></div> -->
+            <List {list} />
+        {/each}        
+    </div>    
     <CreateList />
 </div>
 
