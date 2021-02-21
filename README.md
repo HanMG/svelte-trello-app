@@ -119,3 +119,12 @@ preprocess: sveltePreprocess({
 		]
 	}
 })
+
+
+# lodash - 컬렉션 데이터 제어 
+lodash는 커서 각각의 기능을 따로 쓰는 것을 추천한다함
+npm i -D lodash 
+
+ex)
+_find($lists, { id: listId })
+_remove($lists, {id: listId})

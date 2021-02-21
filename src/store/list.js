@@ -2,6 +2,8 @@
 
 import { writable } from 'svelte/store'
 import cryptoRandomString from 'crypto-random-string'
+import _find from 'lodash/find'
+import _remove from 'lodash/remove'
 
 const generateId = () => cryptoRandomString({ length: 10 })
 
@@ -24,5 +26,21 @@ export const lists = {
             })
             return $lists
         })
+    },
+    edit(payload) {
+        const {listId, title} = payload
+        _lists.update($lists => {            
+            const foundList = _find($lists, { id: listId })
+            foundList.title = title
+            return $lists
+        })
+    },
+    remove(payload) {
+        const {listId} = payload
+        _lists.update($lists => {
+            _remove($lists, {id: listId})
+            return $lists
+        })
     }
+    
 }
