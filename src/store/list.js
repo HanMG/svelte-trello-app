@@ -4,6 +4,7 @@ import { writable } from 'svelte/store'
 import cryptoRandomString from 'crypto-random-string'
 import _find from 'lodash/find'
 import _remove from 'lodash/remove'
+import _cloneDeep from 'lodash/cloneDeep'
 
 const generateId = () => cryptoRandomString({ length: 10 })
 
@@ -16,6 +17,15 @@ _lists.subscribe($lists => {
 
 export const lists = {
     subscribe: _lists.subscribe,
+    reorder(payload) {
+        const { oldIndex, newIndex } = payload
+        _lists.update($lists => {            
+            const clone = _cloneDeep($lists[oldIndex])
+            $lists.splice(oldIndex, 1)
+            $lists.splice(newIndex, 0, clone)
+            return $lists
+        })
+    },
     add(payload) {
         const { title } = payload
         _lists.update($lists => {

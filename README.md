@@ -122,9 +122,18 @@ preprocess: sveltePreprocess({
 
 
 # lodash - 컬렉션 데이터 제어 
+https://www.npmjs.com/package/lodash
 lodash는 커서 각각의 기능을 따로 쓰는 것을 추천한다함
 npm i -D lodash 
 
 ex)
 _find($lists, { id: listId })
 _remove($lists, {id: listId})
+
+# sortablejs - List 정렬을 위한 모듈
+https://github.com/SortableJS/Sortable
+npm i -D sortablejs
+HTML 요소의 정렬을 변경해줌
+
+클릭시 sortable-ghost, sortable-chosen이 생기는 것을 볼 수있는데 
+이를 이용해서 css적용을 해주면 됨

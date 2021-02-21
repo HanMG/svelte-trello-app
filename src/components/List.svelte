@@ -31,7 +31,24 @@
         box-sizing: border-box;
         font-size: 16px;
         white-space: normal;
-        margin: 0 4px;
+        margin: 0 4px;                
+        :global(&.sortable-ghost) {
+            position: relative;
+            opacity: .2;
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                border-radius: 4px;
+            }
+        }
+        :global(&.sortable-chosen) {
+            cursor: move;
+        }
         .list__inner {
             display: flex;
             flex-direction: column;
