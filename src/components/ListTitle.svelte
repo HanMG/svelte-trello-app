@@ -1,5 +1,5 @@
 <script>
-    import { tick } from 'svelte'
+    import { onDestroy, tick, createEventDispatcher } from 'svelte'
     import { lists } from '~/store/list'
     import { autoFocusout } from '~/actions/autoFocusout'
 
@@ -7,6 +7,7 @@
     let isEditMode = false
     let title = list.title
     let textareaEl
+    const dispatch = createEventDispatcher()
 
     function saveTitle() {
         if(title.trim()) {
@@ -26,12 +27,18 @@
     async function onEditMode() {
         isEditMode = true
         title = list.title
+        dispatch('editMode', true)
         await tick()
         textareaEl && textareaEl.focus()
     }
     function offEditMode() {
         isEditMode = false
+        dispatch('editMode', false)
     }
+
+    onDestroy( () => {
+        offEditMode()
+    })
 </script>
 
 {#if isEditMode}

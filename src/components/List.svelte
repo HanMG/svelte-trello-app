@@ -7,9 +7,16 @@
     import Card from '~/components/Card.svelte'    
 
     export let list
+    export let sortableLists
 
     let cardsEl
     let sortableCards
+
+    function toggleSortable(event) {
+        console.log(event.detail)
+        sortableLists.option('disabled', event.detail)
+        sortableCards.option('disabled', event.detail)
+    }    
 
     onMount(() => {
         // For Lists
@@ -36,7 +43,9 @@
 <div class="list">
     <div class="list__inner">
         <div class="list__heading">
-            <ListTitle {list} />
+            <ListTitle
+                {list}
+                on:editMode={toggleSortable} />
             <p>
                 {list.cards.length} cards
             </p>
@@ -46,10 +55,15 @@
             bind:this={cardsEl} 
             class="list__cards">
             {#each list.cards as card (card.id)}
-                <Card listId={list.id} {card} />    
+                <Card 
+                    listId={list.id}
+                    {card}
+                    on:editMode={toggleSortable} />    
             {/each}            
         </div>
-        <CreateCard listId={list.id} />
+        <CreateCard
+            listId={list.id}
+            on:editMode={toggleSortable} />
     </div>
 </div>
 
