@@ -1,5 +1,8 @@
 https://www.inflearn.com/course/%EC%8A%A4%EB%B2%A8%ED%8A%B8-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C#
 
+# 결과물 
+https://competent-keller-61aa8f.netlify.app/
+
 # svelte-trello-app
 trello 라는 Todo 서비스를 svelte를 이용하여 클론 구현
 
@@ -137,3 +140,8 @@ HTML 요소의 정렬을 변경해줌
 
 클릭시 sortable-ghost, sortable-chosen이 생기는 것을 볼 수있는데 
 이를 이용해서 css적용을 해주면 됨
+
+
+# netlify를 통한 지속적인 배포 (Continuous Deployment ,CD)
+github의 repo를 연결만 하면 지속적으로 추적하면서 배포 해줌
+https://www.netlify.com/
