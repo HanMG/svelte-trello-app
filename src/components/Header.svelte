@@ -13,7 +13,7 @@
         box-sizing: border-box;
         img.logo{
             width: 80px;
-            opacity: 0;
+            opacity: 0.5;
         }
     }
 </style>
