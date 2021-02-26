@@ -155,9 +155,12 @@ break-all로 값을 적용시 text가 많아도 요소를 넘어가지않고 요
 console로그를 제거
 npm i -D @rollup/plugin-strip
 
-
-
+rollup.config에 import 한 후 아래의 옵션을 기입
 production && strip({
-	include: '**/*.(svelte|js)'			
+	include: '**/*.(svelte|js)' 
+	// ** 전체 파일 아래서 
+	// *.(svelte|js) svelte 또는 js확장자를 가진 모든 곳에서 적용
+	// 원래 functions 옵션으로 지울 것을 입력해야하는데 
+	// 기본값으로 console이 제거된다고함
 }),
 
