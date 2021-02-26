@@ -145,3 +145,19 @@ HTML 요소의 정렬을 변경해줌
 # netlify를 통한 지속적인 배포 (Continuous Deployment ,CD)
 github의 repo를 연결만 하면 지속적으로 추적하면서 배포 해줌
 https://www.netlify.com/
+
+# word-break 
+text에 관한 css로 
+break-all로 값을 적용시 text가 많아도 요소를 넘어가지않고 요소안에 
+모두 출력되게 함
+
+# 제품 모드의 로그 제거
+console로그를 제거
+npm i -D @rollup/plugin-strip
+
+
+
+production && strip({
+	include: '**/*.(svelte|js)'			
+}),
+
